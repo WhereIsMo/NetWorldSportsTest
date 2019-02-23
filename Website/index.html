@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>NetWorld Sports</title>
+        <meta name="description" content="Welcome to my placement test ;) hope it meets your requirements">
+        <link rel="stylesheet" href="css/styles.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="js/slick-1.8.1/slick/slick.min.js"></script>
+        <link rel="stylesheet" href="js/slick-1.8.1/slick/slick.css">
+        <script src="js/init.js"></script>
+
+    </head>
+    <body>
+        <header>
+              
+        <a href="https://www.networldsports.co.uk"><img src="images/net-world-sports.png"></a>
+       
+        </header>
+        <div id="carousel">
+
+            <div><img src="images/1.main_5.jpg"></div>
+            <div><img src="images/12x6-locking-target-sheet-1.jpg"></div>
+            <div><img src="images/8x6_locking_1_5.jpg"></div>
+            <div><img src="images/forb_black_1_1.jpg"></div>
+            <div><img src="images/main4.jpg"></div>
+        </div>
+
+        <ul style="list-style-type: decimal">
+            <li><p><i>We have a variable, defined as $string, which is a string 200 characters long, and we want to display only 40 characters in a snippet. What approach would you take to achieve this?</i></p>
+
+                <div><button onclick= "reveal('q1')">Reveal Answer</button>
+                    <div id="q1" class="rev">
+                        I decided to create a proper function to make sure that both <i>length</i> and <i>string</i> can be changed... it also allows the end user to define whether they would like the cutoff point to be at the end of a word or igonre words completely.<br><br>
+
+                        "    $length = 40;<br>
+
+                        function truncate($string, $length, $stopanywhere=false) {<br>
+                        <i>//truncates a string to a certain char length, stopping on a word if not specified otherwise.</i><br>
+                        if (strlen($string) > $length) {<br>
+                        //limit hit!<br>
+                        $string = substr($string,0,($length -3));<br>
+                        if ($stopanywhere) {<br>
+                        <i>//stop anywhere</i><br>
+                        $string .= '...';<br>
+                        } else{<br>
+                        <i>//stop on a word.</i><br>
+                        $string = substr($string,0,strrpos($string,' ')).'...';<br>
+                        }<br>
+                        }<br>
+                        return $string;<br>
+                        }" 
+
+                    </div></div>
+
+
+
+            </li>
+
+            <li><p><i>$string contains letters and numbers, the numbers aren't relevant to us, so we want to remove all of the numbers from the string. What approach would you take to achieve this?</i></p>
+
+                <div><button onclick= "reveal('q2')">Reveal Answer</button>
+                    <div id="q2" class="rev">
+                        PHP provides an easy to use method that will allow us to remove/replace  any values we do not want in a string <br><br>
+                        $string = preg_replace('/\d/', '', $string);</div></div>
+            </li>
+
+            <li><p><i>$string has been encrypted using a basic encryption method. We know that all occurrences of the letters 'a, r, d' were replaced with 'c, m, e' respectively; we need to replace these letters with the respective letters. What approach would you take to achieve this?</i></p>
+
+                <div><button onclick= "reveal('q3')">Reveal Answer</button>
+                    <div id="q3" class="rev">
+                        " str_replace(array('a', 'r', 'd'), array('c', 'm', 'e'), $string); "</div></div>
+            </li>
+
+            <li><p><i>We know that $string is a url, what we need to know is the domain name used in the url. What approach would you take to achieve this?</i></p>
+
+                <div><button onclick= "reveal('q4')">Reveal Answer</button>
+                    <div id="q4" class="rev">
+                        There is the approach of using the <i>'parse_url()'</i> built in function.<br>
+
+                        <i>	$parse = parse_url($string);
+                            $string = $parse['host'];</i>
+                        <br>
+
+                        However, this does not guarantee that the <i>"www"</i> will be removed, therefore i decided to create another function that would be much better suited to eliminate any chance that anything other than the domain would be included in the result (this was a pain to make because PHP struggles with seperating the 'host' and 'domain'). This function works with both ".com" and ".co.uk" handles from my testing.<br>
+
+
+                        <div>
+                            <br>function getDomain($string){<br>
+                            <br>
+                            $pieces = parse_url($string);<br>
+                            $domain = isset($pieces['host']) ? $pieces['host'] : '';<br>
+                            <br>
+                            if(preg_match('/(?P&lt;domain&gt;[a-z0-9][a-z0-9\-]{1,63}\.[a-z\.]{2,6})$/i, $domain, $regs)){<br>
+                            return $regs['domain'];<br>
+                            }<br>
+                            return FALSE;<br>
+                            }
+
+
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li><p><i>Lastly, there were 2 parameters passed in the url. We need to know the name and value of the 2 parameters. What approach would you take to achieve this?</i></p>
+
+                <div><button onclick= "reveal('q5')">Reveal Answer</button>
+                    <div id="q5" class="rev">
+                        If there are parameters in the URL, it means that a '$GET' request is used. This makes our life simple as we can just use a 'foreach' function to retrieve the data from the url.<br>
+                        <br>
+                        here is the code that can be used:<br>
+                        <br>
+                        foreach($_GET as $name=>$value){<br>
+                        echo $value, ' = ', $value, "<br/>n";<br>
+                        }<br>
+                    </div></div>
+            </li>
+
+        </ul>
+    </body>
+</html>
